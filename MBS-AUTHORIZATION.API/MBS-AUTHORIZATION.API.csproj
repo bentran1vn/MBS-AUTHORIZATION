@@ -5,10 +5,24 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>MBS_AUTHORIZATION.API</RootNamespace>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MBS-AUTHORIZATION.Application\MBS-AUTHORIZATION.Application.csproj" />
+      <ProjectReference Include="..\MBS_AUTHORIZATION.Contract\MBS_AUTHORIZATION.Contract.csproj" />
+      <ProjectReference Include="..\MBS_AUTHORIZATION.Infrastructure\MBS_AUTHORIZATION.Infrastructure.csproj" />
+      <ProjectReference Include="..\MBS_AUTHORIZATION.Presentation\MBS_AUTHORIZATION.Presentation.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>
