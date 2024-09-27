@@ -478,5 +478,3 @@ Temporary Items
 # End of https://www.toptal.com/developers/gitignore/api/macos,rider,intellij,aspnetcore,dotnetcore
 
 docker-compose.yml
-/MBS-AUTHORIZATION.API/appsettings.json
-/MBS-AUTHORIZATION.API/appsettings.Development.json
