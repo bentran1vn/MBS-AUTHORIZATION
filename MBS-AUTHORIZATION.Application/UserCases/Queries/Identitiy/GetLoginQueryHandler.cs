@@ -14,14 +14,14 @@ public class GetLoginQueryHandler(IHttpContextAccessor httpContext) : IQueryHand
 {
     public async Task<Result<string>> Handle(Query.Login request, CancellationToken cancellationToken)
     {
-        //var payload = await GoogleJsonWebSignature.ValidateAsync(request.GoogleToken);
-        //if (payload == null)
-        //    return (Result<string>)Result.Failure(Error.NullValue);
-        //if (payload.Audience != "475317717183-atq7ughidhmier07c1udn2gbdre1q9mt.apps.googleusercontent.com")
-        //    return (Result<string>)Result.Failure(Error.InvalidAudience);
-        //var googleId = payload.Subject;
-      //  var email = payload.Email;
-      await httpContext.HttpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme);
+        var payload = await GoogleJsonWebSignature.ValidateAsync(request.GoogleToken);
+        if (payload == null)
+            return (Result<string>)Result.Failure(Error.NullValue);
+        if (payload.Audience != "475317717183-atq7ughidhmier07c1udn2gbdre1q9mt.apps.googleusercontent.com")
+            return (Result<string>)Result.Failure(Error.InvalidAudience);
+        var googleId = payload.Subject;
+        var email = payload.Email;
+        //  await httpContext.HttpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme);
 
         return (Result<string>)Result<string>.Success("123");
     }

@@ -1,3 +1,4 @@
+using MBS_AUTHORIZATION.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MBS_AUTHORIZATION.Persistence;
@@ -12,11 +13,6 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder) =>
         builder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
 
-    // public DbSet<AppUser> AppUses { get; set; }
-    // public DbSet<Action> Actions { get; set; }
-    // public DbSet<Function> Functions { get; set; }
-    // public DbSet<ActionInFunction> ActionInFunctions { get; set; }
-    // public DbSet<Permission> Permissions { get; set; }
-    //
-    // public DbSet<Product> Products { get; set; }
+    public DbSet<User> Users { get; set; }
+
 }
