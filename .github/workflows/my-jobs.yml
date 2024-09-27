@@ -1,26 +1,37 @@
-name: My Jobs
+name: CI/CD Pipeline
+
 on:
+  push:
+    branches:
+      - '*'         # Matches every branch
+      - '!main'     # Excludes main branch
   pull_request:
+    types:
+      - closed
     branches:
       - main
+
 jobs:
-  build_and_deploy:
+  build:
     runs-on: [self-hosted]
-    if: github.event.pull_request.merged == true
-    env:
-      CONTAINER_NAME: myappAuthContainer
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
       - uses: actions/checkout@v3
       - name: Build Docker Image
         run: docker build -t myapp-auth:latest -f MBS-AUTHORIZATION.API/Dockerfile .
-      - name: Manage Docker Container and Build
+
+  deploy:
+    needs: build
+    runs-on: [self-hosted]
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+    env:
+      CONTAINER_NAME: myappAuthContainer
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Server
         run: |
           CNAME=${{ env.CONTAINER_NAME }}
-
           # Check if the container exists
           if [ "$(docker ps -aq -f name=$CNAME)" ]; then
               if [ "$(docker ps -aq -f status=exited -f name=$CNAME)" ]; then
@@ -40,3 +51,6 @@ jobs:
           # Run new container
           echo ":: Running new container - $CNAME"
           docker run -d --network=MBS -p 5000:8080 --name $CNAME myapp-auth:latest
+
+      - name: Notify Deployment
+        run: echo "Deployment completed successfully!"
