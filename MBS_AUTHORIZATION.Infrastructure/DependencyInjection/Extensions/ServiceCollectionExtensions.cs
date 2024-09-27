@@ -4,6 +4,7 @@ using MBS_AUTHORIZATION.Contract.JsonConverters;
 using MBS_AUTHORIZATION.Domain.Abstractions;
 using MBS_AUTHORIZATION.Infrastructure.Authentication;
 using MBS_AUTHORIZATION.Infrastructure.Caching;
+using MBS_AUTHORIZATION.Infrastructure.PasswordHasher;
 using MBS_AUTHORIZATION.Infrastructure.DependencyInjection.Options;
 using MBS_AUTHORIZATION.Persistence;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +31,7 @@ public static class ServiceCollectionExtensions
 
     public static void AddServicesInfrastructure(this IServiceCollection services)
         => services.AddTransient<IJwtTokenService, JwtTokenService>()
+        .AddTransient<IPasswordHasherService, PasswordHasherService>()
         .AddTransient<ICacheService, CacheService>();
        
         
