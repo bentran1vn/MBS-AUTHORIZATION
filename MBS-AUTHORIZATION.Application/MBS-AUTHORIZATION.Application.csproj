@@ -26,4 +26,8 @@
       <ProjectReference Include="..\MBS_AUTHORIZATION.Persistence\MBS_AUTHORIZATION.Persistence.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="UserCases\Commands\" />
+    </ItemGroup>
+
 </Project>

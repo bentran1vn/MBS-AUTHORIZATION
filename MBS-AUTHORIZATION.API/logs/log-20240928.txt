@@ -1,0 +1,21 @@
+2024-09-28 01:04:57.026 +07:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2024-09-28 01:04:57.386 +07:00 [ERR] Failed executing DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Users] (
+    [Id] uniqueidentifier NOT NULL,
+    [Email] nvarchar(max) NOT NULL,
+    [FullName] nvarchar(max) NULL,
+    [Password] nvarchar(max) NOT NULL,
+    [Gender] bit NOT NULL,
+    [Phonenumber] nvarchar(max) NOT NULL,
+    [Role] int NOT NULL,
+    [Points] int NOT NULL,
+    [Status] int NOT NULL,
+    [MentorId] uniqueidentifier NULL,
+    [CreatedOnUtc] datetimeoffset NOT NULL,
+    [ModifiedOnUtc] datetimeoffset NULL,
+    [IsDeleted] bit NOT NULL,
+    CONSTRAINT [PK_Users] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Users_Users_MentorId] FOREIGN KEY ([MentorId]) REFERENCES [Users] ([Id])
+);
+2024-09-28 01:05:40.866 +07:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2024-09-28 01:07:15.197 +07:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
