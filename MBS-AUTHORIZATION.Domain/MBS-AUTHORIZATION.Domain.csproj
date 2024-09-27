@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MBS_AUTHORIZATION.Contract\MBS_AUTHORIZATION.Contract.csproj" />
   </ItemGroup>
 	<ItemGroup>
