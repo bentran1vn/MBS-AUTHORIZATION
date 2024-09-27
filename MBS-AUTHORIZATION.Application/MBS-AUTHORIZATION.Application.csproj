@@ -8,7 +8,22 @@
     </PropertyGroup>
 
     <ItemGroup>
+      
+      <PackageReference Include="Google.Apis.Auth" Version="1.68.0" />
+      
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.8" />
+      <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+		<PackageReference Include="FluentValidation" Version="11.10.0" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
+		<PackageReference Include="MediatR" Version="12.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MBS-AUTHORIZATION.Domain\MBS-AUTHORIZATION.Domain.csproj" />
       <ProjectReference Include="..\MBS_AUTHORIZATION.Contract\MBS_AUTHORIZATION.Contract.csproj" />
+      <ProjectReference Include="..\MBS_AUTHORIZATION.Persistence\MBS_AUTHORIZATION.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

@@ -10,5 +10,9 @@
       <ProjectReference Include="..\MBS-AUTHORIZATION.Application\MBS-AUTHORIZATION.Application.csproj" />
       <ProjectReference Include="..\MBS_AUTHORIZATION.Contract\MBS_AUTHORIZATION.Contract.csproj" />
     </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.1.0" />
+		<PackageReference Include="Carter" Version="7.2.0" />
+	</ItemGroup>
 
 </Project>
