@@ -17,7 +17,7 @@ public class EFUnitOfWork : IUnitOfWork
     public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         //ConvertDomainEventsToOutboxMessages();
-        //UpdateAuditableEntities();
+        UpdateAuditableEntities();
         await _dbContext.SaveChangesAsync();
     }
 
