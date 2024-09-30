@@ -37,9 +37,9 @@ public class RegisterCommandHandler : ICommandHandler<Command.RegisterCommand>
             Email = request.Email,
             FullName = request.FirstName + request.LastName,
             Role = request.Role,
-            Phonenumber = request.Phonenumber,
+            
             Password = hashingPassword,
-            Gender = false,
+           
             Points = 100,
             Status = 0
         };
