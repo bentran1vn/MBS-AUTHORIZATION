@@ -6,29 +6,53 @@ using MBS_AUTHORIZATION.Contract.Services.Identity;
 using MBS_AUTHORIZATION.Domain.Abstractions;
 using MBS_AUTHORIZATION.Domain.Abstractions.Repositories;
 using MBS_AUTHORIZATION.Domain.Entities;
-using MBS_AUTHORIZATION.Persistence;
 using System.Security.Claims;
 
 
 namespace MBS_AUTHORIZATION.Application.UserCases.Queries.Identitiy;
 
-public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBase, IUnitOfWork eFUnitOfWork, IJwtTokenService jwtTokenService) : IQueryHandler<Query.LoginGoogle, Response.Authenticated>
+public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBase, IUnitOfWork eFUnitOfWork, IJwtTokenService jwtTokenService, IPasswordHasherService passwordHasherService) : IQueryHandler<Query.LoginGoogle, Response.Authenticated>
 {
     public async Task<Result<Response.Authenticated>> Handle(Query.LoginGoogle request, CancellationToken cancellationToken)
     {
-        var payload = await GoogleJsonWebSignature.ValidateAsync(request.GoogleToken) ?? throw new Exception("Invalid Google Token");
+        var payload = await GoogleJsonWebSignature.ValidateAsync(request.GoogleToken);
+        if (payload == null)
+        {
+            return (Result<Response.Authenticated>)Result.Failure(new Error("404", "Invalid Google Token"));
+        }
         var user = await repositoryBase.FindSingleAsync(x => x.Email == payload.Email, cancellationToken);
-
+        int status = 0;
+        int role = 1;
+        Random random = new();
+        var randomNumber = random.Next(0, 100000).ToString("D5");
+        var hashedPassword = passwordHasherService.HashPassword(randomNumber);
+        Console.BackgroundColor = ConsoleColor.Red;
+        Console.WriteLine(randomNumber);
         if (user == null)
         {
+
+
+            List<string> emails =
+            [
+                "pham",
+                "tan",
+                "lam",
+                "son",
+
+            ];
+            if (!emails.Contains(payload.Email))
+            {
+                status = 1;
+                role = 0;
+            }
             user = new User
             {
                 Email = payload.Email,
                 FullName = payload.Name,
                 Points = 0,
-                Role = 1,
-                Status = 1,
-                Password = "123456",
+                Role = role,
+                Status = status,
+                Password = hashedPassword,
             };
 
             repositoryBase.Add(user);
