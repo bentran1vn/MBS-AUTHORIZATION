@@ -3,7 +3,6 @@ using MBS_AUTHORIZATION.Contract.Abstractions.Messages;
 using MBS_AUTHORIZATION.Contract.Abstractions.Shared;
 using MBS_AUTHORIZATION.Contract.Services.Identity;
 using MBS_AUTHORIZATION.Domain.Abstractions.Repositories;
-using MBS_AUTHORIZATION.Domain.Entities;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace MBS_AUTHORIZATION.Application.UserCases.Commands.Identity;
@@ -12,9 +11,9 @@ public class ForgotPasswordCommandHandler : ICommandHandler<Command.ForgotPasswo
 {
     // private readonly IMailService _mailService;
     private readonly ICacheService _cacheService;
-    private readonly IRepositoryBase<User, Guid> _userRepository;
+    private readonly IRepositoryBase<Domain.Entities.User, Guid> _userRepository;
 
-    public ForgotPasswordCommandHandler(ICacheService cacheService, IRepositoryBase<User, Guid> userRepository)
+    public ForgotPasswordCommandHandler(ICacheService cacheService, IRepositoryBase<Domain.Entities.User, Guid> userRepository)
     {
         // _mailService = mailService;
         _cacheService = cacheService;

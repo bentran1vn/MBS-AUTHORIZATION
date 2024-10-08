@@ -9,10 +9,10 @@ namespace MBS_AUTHORIZATION.Application.UserCases.Commands.Identity;
 
 public class RegisterCommandHandler : ICommandHandler<Command.RegisterCommand>
 {
-    private readonly IRepositoryBase<User, Guid> _userRepository;
+    private readonly IRepositoryBase<Domain.Entities.User, Guid> _userRepository;
     private readonly IPasswordHasherService _passwordHasherService;
 
-    public RegisterCommandHandler(IRepositoryBase<User, Guid> userRepository, IPasswordHasherService passwordHasherService)
+    public RegisterCommandHandler(IRepositoryBase<Domain.Entities.User, Guid> userRepository, IPasswordHasherService passwordHasherService)
     {
         _userRepository = userRepository;
         _passwordHasherService = passwordHasherService;
@@ -31,7 +31,7 @@ public class RegisterCommandHandler : ICommandHandler<Command.RegisterCommand>
 
         var hashingPassword = _passwordHasherService.HashPassword(request.Password);
         
-        var user = new User
+        var user = new Domain.Entities.User
         {
             Id = Guid.NewGuid(),
             Email = request.Email,

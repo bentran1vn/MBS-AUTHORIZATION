@@ -13,9 +13,9 @@ public class VerifyCodeCommandHandler : ICommandHandler<Command.VerifyCodeComman
 {
     private readonly ICacheService _cacheService;
     private readonly IJwtTokenService _jwtTokenService;
-    private readonly IRepositoryBase<User, Guid> _userRepository;
+    private readonly IRepositoryBase<Domain.Entities.User, Guid> _userRepository;
 
-    public VerifyCodeCommandHandler(ICacheService cacheService, IJwtTokenService jwtTokenService, IRepositoryBase<User, Guid> userRepository)
+    public VerifyCodeCommandHandler(ICacheService cacheService, IJwtTokenService jwtTokenService, IRepositoryBase<Domain.Entities.User, Guid> userRepository)
     {
         _cacheService = cacheService;
         _jwtTokenService = jwtTokenService;

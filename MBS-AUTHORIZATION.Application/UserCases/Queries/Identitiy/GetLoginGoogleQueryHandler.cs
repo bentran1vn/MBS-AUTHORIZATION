@@ -21,13 +21,15 @@ public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBa
             return (Result<Response.Authenticated>)Result.Failure(new Error("404", "Invalid Google Token"));
         }
         var user = await repositoryBase.FindSingleAsync(x => x.Email == payload.Email, cancellationToken);
-        int status = 0;
-        int role = 1;
-        Random random = new();
-        var randomNumber = random.Next(0, 100000).ToString("D5");
-        var hashedPassword = passwordHasherService.HashPassword(randomNumber);
-        Console.BackgroundColor = ConsoleColor.Red;
-        Console.WriteLine(randomNumber);
+        int status = 1;
+        int role = 0;
+        //Random random = new();
+        //var randomNumber = random.Next(0, 100000).ToString("D5");
+        //var hashedPassword = passwordHasherService.HashPassword(randomNumber);
+      //  Console.BackgroundColor = ConsoleColor.Red;
+      //  Console.WriteLine(randomNumber);
+        var hashedPassword = "12345";
+       
         if (user == null)
         {
 
@@ -40,10 +42,10 @@ public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBa
                 "son",
 
             ];
-            if (!emails.Contains(payload.Email))
+            if (emails.Contains(payload.Email))
             {
-                status = 1;
-                role = 0;
+                status = 0;
+                role = 1;
             }
             user = new User
             {

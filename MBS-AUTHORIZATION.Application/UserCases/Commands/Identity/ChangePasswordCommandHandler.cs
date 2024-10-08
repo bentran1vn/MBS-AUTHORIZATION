@@ -9,11 +9,11 @@ namespace MBS_AUTHORIZATION.Application.UserCases.Commands.Identity;
 
 public class ChangePasswordCommandHandler : ICommandHandler<Command.ChangePasswordCommand>
 {
-    private readonly IRepositoryBase<User, Guid> _userRepository;
+    private readonly IRepositoryBase<Domain.Entities.User, Guid> _userRepository;
     private readonly IPasswordHasherService _passwordHasherService;
     private readonly ICacheService _cacheService;
 
-    public ChangePasswordCommandHandler(IRepositoryBase<User, Guid> userRepository, IPasswordHasherService passwordHasherService, ICacheService cacheService)
+    public ChangePasswordCommandHandler(IRepositoryBase<Domain.Entities.User, Guid> userRepository, IPasswordHasherService passwordHasherService, ICacheService cacheService)
     {
         _userRepository = userRepository;
         _passwordHasherService = passwordHasherService;
