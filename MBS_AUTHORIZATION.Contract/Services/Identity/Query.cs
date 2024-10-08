@@ -7,6 +7,8 @@ namespace MBS_AUTHORIZATION.Contract.Services.Identity;
 public static class Query
 {
     public record LoginGoogle(string GoogleToken) : IQuery<Response.Authenticated>;
+
+    public record LoginGoolgeTest : IQuery<string>;
     public record LogoutGoogle :IQuery<string>;
     
     public record Login(string EmailOrUserName, string Password) : IQuery<Response.Authenticated>, ICacheable

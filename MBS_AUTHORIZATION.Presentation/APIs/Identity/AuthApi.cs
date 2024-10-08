@@ -23,6 +23,7 @@ public class AuthApi : ApiEndpoint, ICarterModule
             .MapGroup(BaseUrl).HasApiVersion(1);
 
         group1.MapPost("login_google", LoginGoogleV1);
+        group1.MapPost("login_google_test", LoginGoogleTest);
         group1.MapGet("logout_google", LogoutGoogleV1).RequireAuthorization();
         group1.MapPost("login", LoginV1);
         group1.MapPost("register", RegisterV1);
@@ -33,6 +34,16 @@ public class AuthApi : ApiEndpoint, ICarterModule
         group1.MapGet("logout", LogoutV1).RequireAuthorization();
     }
 
+
+    public static async Task<IResult> LoginGoogleTest(ISender sender , QueryV1.LoginGoolgeTest login)
+    {
+
+       var result = await sender.Send(login);
+
+        if (result.IsFailure)
+            return HandlerFailure(result);
+        return Results.Ok(result);
+    }
     public static async Task<IResult> LoginGoogleV1(ISender sender, QueryV1.LoginGoogle login)
     {
         var result = await sender.Send(login);

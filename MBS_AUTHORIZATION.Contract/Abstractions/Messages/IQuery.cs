@@ -3,6 +3,4 @@ using MediatR;
 
 namespace MBS_AUTHORIZATION.Contract.Abstractions.Messages;
 
-public interface IQuery<TResponse> : IRequest<Result<TResponse>>
-{
-}
+public interface IQuery<TResponse> : IRequest<Result<TResponse>>;
