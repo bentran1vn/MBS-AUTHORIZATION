@@ -26,10 +26,10 @@ public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBa
         //Random random = new();
         //var randomNumber = random.Next(0, 100000).ToString("D5");
         //var hashedPassword = passwordHasherService.HashPassword(randomNumber);
-      //  Console.BackgroundColor = ConsoleColor.Red;
-      //  Console.WriteLine(randomNumber);
+        //  Console.BackgroundColor = ConsoleColor.Red;
+        //  Console.WriteLine(randomNumber);
         var hashedPassword = "12345";
-       
+
         if (user == null)
         {
 
@@ -42,7 +42,8 @@ public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBa
                 "son",
 
             ];
-            if (emails.Contains(payload.Email))
+            //payload.Email = phamphucnghi1706@gmail.com
+            if (emails.Exists(payload.Email.Contains))
             {
                 status = 0;
                 role = 1;
