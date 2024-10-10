@@ -40,7 +40,7 @@ public class RegisterCommandHandler : ICommandHandler<Command.RegisterCommand>
             
             Password = hashingPassword,
            
-            Points = 100,
+            Points = 0,
             Status = 0
         };
         
