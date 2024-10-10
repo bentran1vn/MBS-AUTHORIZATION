@@ -10,5 +10,5 @@ public static class Command
 
     //public record DeleteProductCommand(Guid Id) : ICommand;
 
-    public record RegisterMentor(Guid MentorId) : ICommand;
+    
 }

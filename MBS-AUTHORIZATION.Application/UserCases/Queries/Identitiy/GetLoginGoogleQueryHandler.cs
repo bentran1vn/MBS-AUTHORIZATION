@@ -25,10 +25,10 @@ public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBa
         int role = 0;
         //Random random = new();
         //var randomNumber = random.Next(0, 100000).ToString("D5");
-        //var hashedPassword = passwordHasherService.HashPassword(randomNumber);
+
         //  Console.BackgroundColor = ConsoleColor.Red;
         //  Console.WriteLine(randomNumber);
-        var hashedPassword = "12345";
+        var hashedPassword = passwordHasherService.HashPassword("12345");
 
         if (user == null)
         {
@@ -36,7 +36,7 @@ public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBa
 
             List<string> emails =
             [
-                "pham",
+                "nghi",
                 "tan",
                 "lam",
                 "son",
