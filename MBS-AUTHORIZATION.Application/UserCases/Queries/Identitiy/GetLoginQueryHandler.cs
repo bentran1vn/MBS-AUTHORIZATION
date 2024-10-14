@@ -29,27 +29,22 @@ public class GetLoginQueryHandler : IQueryHandler<Query.Login, Response.Authenti
         // Check User
         var user =
             await _userRepository.FindSingleAsync(x =>
-                x.Email.Equals(request.EmailOrUserName), cancellationToken);
-        
-        if (user is null)
-        {
-            throw new Exception("User Not Existed !");
-        }
-
+                x.Email.Equals(request.EmailOrUserName), cancellationToken) ?? throw new Exception("User Not Existed !");
         if (!_passwordHasherService.VerifyPassword(request.Password, user.Password))
         {
             throw new UnauthorizedAccessException("UnAuthorize !");
         }
-        
+
         // Generate JWT Token
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Email, request.EmailOrUserName),
-            new Claim(ClaimTypes.Role, user.Role.ToString()),
-            new Claim("Role", user.Role.ToString()),
-            new Claim("UserId", user.Id.ToString()),
-            new Claim(ClaimTypes.Name, request.EmailOrUserName),
-            new Claim(ClaimTypes.Expired, DateTime.Now.AddMinutes(5).ToString())
+            new(ClaimTypes.Email, request.EmailOrUserName),
+            new(ClaimTypes.Role, user.Role.ToString()),
+            new("Role", user.Role.ToString()),
+            new("UserId", user.Id.ToString()),
+            new(ClaimTypes.Name, request.EmailOrUserName),
+            new(ClaimTypes.Expired, DateTime.Now.AddMinutes(5).ToString()),
+            new(ClaimTypes.NameIdentifier, user.Id.ToString())
         };
 
         var accessToken = _jwtTokenService.GenerateAccessToken(claims);
@@ -61,13 +56,13 @@ public class GetLoginQueryHandler : IQueryHandler<Query.Login, Response.Authenti
             RefreshToken = refreshToken,
             RefreshTokenExpiryTime = DateTime.Now.AddMinutes(15)
         };
-        
+
         var slidingExpiration = request.SlidingExpirationInMinutes == 0 ? 10 : request.SlidingExpirationInMinutes;
         var absoluteExpiration = request.AbsoluteExpirationInMinutes == 0 ? 15 : request.AbsoluteExpirationInMinutes;
         var options = new DistributedCacheEntryOptions()
             .SetSlidingExpiration(TimeSpan.FromMinutes(slidingExpiration))
             .SetAbsoluteExpiration(TimeSpan.FromMinutes(absoluteExpiration));
-        
+
         await _cacheService.SetAsync($"{nameof(Query.Login)}-UserAccount:{request.EmailOrUserName}", response, options, cancellationToken);
 
         return Result.Success(response);
