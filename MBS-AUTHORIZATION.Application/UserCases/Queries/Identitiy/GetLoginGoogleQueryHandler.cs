@@ -37,7 +37,7 @@ public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBa
             List<string> emails =
             [
                 "nghi",
-                "tan",
+                "tandt",
                 "lam",
                 "son",
 
@@ -47,6 +47,10 @@ public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBa
             {
                 status = 0;
                 role = 1;
+            }
+            else if(payload.Email.Contains("tan182205@gmail.com"))
+            {
+                role=0;
             }
             user = new User
             {
