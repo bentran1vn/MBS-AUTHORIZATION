@@ -37,7 +37,7 @@ public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBa
             List<string> emails =
             [
                 "nghi",
-                "tandt",
+                "tantdt",
                 "lam",
                 "son",
 
