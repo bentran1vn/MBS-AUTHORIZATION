@@ -32,15 +32,12 @@ public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBa
 
         if (user == null)
         {
-
-
             List<string> emails =
             [
                 "nghi",
                 "tantdtse171757@fpt.edu.vn",
                 "lam",
                 "son",
-
             ];
             //payload.Email = phamphucnghi1706@gmail.com
             if (emails.Exists(payload.Email.Contains))
