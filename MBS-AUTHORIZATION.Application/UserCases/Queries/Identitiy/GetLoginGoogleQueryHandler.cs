@@ -7,11 +7,13 @@ using MBS_AUTHORIZATION.Domain.Abstractions;
 using MBS_AUTHORIZATION.Domain.Abstractions.Repositories;
 using MBS_AUTHORIZATION.Domain.Entities;
 using System.Security.Claims;
+using MBS_AUTHORIZATION.Persistence;
+using Newtonsoft.Json;
 
 
 namespace MBS_AUTHORIZATION.Application.UserCases.Queries.Identitiy;
 
-public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBase, IUnitOfWork eFUnitOfWork, IJwtTokenService jwtTokenService, IPasswordHasherService passwordHasherService) : IQueryHandler<Query.LoginGoogle, Response.Authenticated>
+public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBase, IUnitOfWork eFUnitOfWork, IJwtTokenService jwtTokenService, IPasswordHasherService passwordHasherService, ApplicationDbContext context) : IQueryHandler<Query.LoginGoogle, Response.Authenticated>
 {
     public async Task<Result<Response.Authenticated>> Handle(Query.LoginGoogle request, CancellationToken cancellationToken)
     {
@@ -23,23 +25,20 @@ public class GetLoginGoogleQueryHandler(IRepositoryBase<User, Guid> repositoryBa
         var user = await repositoryBase.FindSingleAsync(x => x.Email == payload.Email, cancellationToken);
         int status = 1;
         int role = 0;
-        //Random random = new();
-        //var randomNumber = random.Next(0, 100000).ToString("D5");
-
-        //  Console.BackgroundColor = ConsoleColor.Red;
-        //  Console.WriteLine(randomNumber);
         var hashedPassword = passwordHasherService.HashPassword("12345");
 
         if (user == null)
         {
-            List<string> emails =
+            /*List<string> emails =
             [
                 "nghi",
                 "tantdtse171757@fpt.edu.vn",
                 "lam",
                 "son",
-            ];
-            //payload.Email = phamphucnghi1706@gmail.com
+            ];*/
+            var em = context.Configs.Where(x => x.Key.Equals("ListOfAdminAccountContain")).Select(x => x.Value).FirstOrDefault();
+            var emails = JsonConvert.DeserializeObject<List<string>>(em);
+           
             if (emails.Exists(payload.Email.Contains))
             {
                 status = 0;

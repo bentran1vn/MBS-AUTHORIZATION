@@ -14,4 +14,5 @@ public class ApplicationDbContext : DbContext
         builder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Config> Configs { get; set; } 
 }
